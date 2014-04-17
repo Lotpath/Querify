@@ -1,0 +1,1 @@
+..\src\.nuget\nuget pack ..\src\Querify\Querify.csproj -Prop Configuration=Release
