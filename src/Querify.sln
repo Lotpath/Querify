@@ -12,13 +12,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A855D9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{B80C6335-E6D6-4E00-BDE4-63197926410B}"
 	ProjectSection(SolutionItems) = preProject
-		Querify.nuspec = Querify.nuspec
-		Querify.proj = Querify.proj
+		..\.gitignore = ..\.gitignore
+		..\build.cake = ..\build.cake
+		..\build.cmd = ..\build.cmd
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
+		..\ReleaseNotes.md = ..\ReleaseNotes.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Querify.Tests", "Querify.Tests\Querify.Tests.csproj", "{140C8146-9A0B-4FD7-A54B-D34CEBF78FB5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{67D88ED7-5828-44FA-9C3B-EED347392A8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Querify.Nancy", "Querify.Nancy\Querify.Nancy.csproj", "{89BCFFB6-D878-4F43-87DD-EB60F1B41742}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +40,10 @@ Global
 		{140C8146-9A0B-4FD7-A54B-D34CEBF78FB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{140C8146-9A0B-4FD7-A54B-D34CEBF78FB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{140C8146-9A0B-4FD7-A54B-D34CEBF78FB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89BCFFB6-D878-4F43-87DD-EB60F1B41742}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89BCFFB6-D878-4F43-87DD-EB60F1B41742}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89BCFFB6-D878-4F43-87DD-EB60F1B41742}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89BCFFB6-D878-4F43-87DD-EB60F1B41742}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

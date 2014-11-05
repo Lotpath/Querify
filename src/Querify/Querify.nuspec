@@ -13,7 +13,7 @@
     <licenseUrl>https://github.com/Lotpath/Querify/blob/master/license.txt</licenseUrl>
     <projectUrl>http://github.com/Lotpath/Querify</projectUrl>
     <dependencies>
-      <dependency id="NHibernate" />
+      <dependency id="NHibernate" version="[4.0,5.0)" />
     </dependencies>
     <tags>NHibernate Query Extensions Paging Paged</tags>
   </metadata>

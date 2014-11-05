@@ -6,6 +6,15 @@
 *.user
 *.sln.docstates
 
+# Build related
+build-results/
+build/
+tools/Cake/
+tools/xunit.runners/
+
+#nuget packages
+*.nupkg
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
