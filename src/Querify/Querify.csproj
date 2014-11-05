@@ -47,10 +47,10 @@
   <ItemGroup>
     <Compile Include="Advanced\AdvancedQueryableExtensions.cs" />
     <Compile Include="ExpressionExtensions.cs" />
-    <Compile Include="IDataGateway.cs" />
-    <Compile Include="InMemoryDataGateway.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="InMemoryRepository.cs" />
     <Compile Include="ISpecification.cs" />
-    <Compile Include="NHibernateDataGateway.cs" />
+    <Compile Include="NHibernateRepository.cs" />
     <Compile Include="PagedResult.cs" />
     <Compile Include="QuerifyException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
