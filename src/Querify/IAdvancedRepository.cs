@@ -2,7 +2,7 @@
 
 namespace Querify
 {
-    public interface IQuerySource
+    public interface IAdvancedRepository
     {
         IQueryable<T> Query<T>();
     }

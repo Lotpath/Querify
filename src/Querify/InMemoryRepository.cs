@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Querify
 {
-    public class InMemoryRepository : IRepository, IQuerySource
+    public class InMemoryRepository : IRepository, IAdvancedRepository
     {
         private readonly Dictionary<Type, Func<object, object>> _ids; 
         private readonly Dictionary<Type, IList<object>> _store;
@@ -39,7 +39,9 @@ namespace Querify
             store.Remove(entity);
         }
 
-        public IQueryable<T> Query<T>()
+        public IAdvancedRepository Advanced { get { return this; } }
+
+        IQueryable<T> IAdvancedRepository.Query<T>()
         {
             var store = GetStore<T>();
             return store.Cast<T>().AsQueryable();

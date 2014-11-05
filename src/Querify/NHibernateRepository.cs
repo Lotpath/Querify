@@ -4,7 +4,7 @@ using NHibernate.Linq;
 
 namespace Querify
 {
-    public class NHibernateRepository : IRepository, IQuerySource
+    public class NHibernateRepository : IRepository, IAdvancedRepository
     {
         private readonly ISession _session;
 
@@ -28,7 +28,9 @@ namespace Querify
             _session.Delete(entity);
         }
 
-        public IQueryable<T> Query<T>()
+        public IAdvancedRepository Advanced { get { return this; } }
+
+        IQueryable<T> IAdvancedRepository.Query<T>()
         {
             return _session.Query<T>();
         }
