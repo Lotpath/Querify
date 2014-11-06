@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using NHibernate.Util;
 
 namespace Querify
 {
@@ -72,7 +71,7 @@ namespace Querify
             Expression<Func<TSource, TResult>> selector,
             IEnumerable<TResult> options)
         {
-            if (!EnumerableExtensions.Any(options))
+            if (options == null || !options.Any())
                 throw new ArgumentException("At least one options must be specified.", "options");
             Expression orExpression = null;
             Expression selectorExpression = (MemberExpression)selector.Body;

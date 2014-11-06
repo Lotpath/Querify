@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using NHibernate;
-using NHibernate.Linq;
-using Remotion.Linq;
 
 namespace Querify
 {
@@ -12,6 +9,37 @@ namespace Querify
     {
         public const int MaxPageSize = 128;
         public const int DefaultPageSize = 10;
+
+        private static readonly List<IFutureConverter> FutureConverters 
+            = new List<IFutureConverter>(); 
+
+        private class LinqToObjectsFutureConverter : IFutureConverter
+        {
+            public bool CanHandle<T>(IQueryable<T> queryable)
+            {
+                return true;
+            }
+
+            public IEnumerable<T> ToFuture<T>(IQueryable<T> queryable)
+            {
+                return queryable;
+            }
+
+            public Lazy<T> ToFutureValue<T>(IQueryable<T> queryable)
+            {
+                return new Lazy<T>(() => queryable.SingleOrDefault());
+            }
+
+            public Lazy<TResult> ToFutureValue<TSource, TResult>(IQueryable<TSource> queryable, Expression<Func<IQueryable<TSource>, TResult>> selector)
+            {
+                return new Lazy<TResult>(() => selector.Compile()(queryable));
+            }
+        }
+
+        static QueryableExtensions()
+        {
+            FutureConverters.Add(new LinqToObjectsFutureConverter());
+        }
 
         /// <summary>
         /// Find items matching the specified expression
@@ -60,7 +88,7 @@ namespace Querify
         {
             if (expression == null)
             {
-                return new Lazy<T>(() => query.ToFutureValue().Value);
+                return new Lazy<T>(() => AsFutureValue(query).Value);
             }
 
             query = query.Where(expression);
@@ -91,56 +119,29 @@ namespace Querify
                 });
         }
 
-        private class FutureValue<T> : IFutureValue<T>
+        public static void RegisterConverter(IFutureConverter converter)
         {
-            private readonly Func<T> _func;
+            FutureConverters.Insert(0, converter);
+        }
 
-            public FutureValue(Func<T> func)
-            {
-                _func = func;
-            }
-
-            public T Value
-            {
-                get { return _func(); }
-            }
+        private static IFutureConverter GetConverter<T>(IQueryable<T> queryable)
+        {
+            return FutureConverters.First(x => x.CanHandle(queryable));
         }
 
         private static IEnumerable<T> AsFuture<T>(IQueryable<T> queryable)
         {
-            if (queryable is QueryableBase<T>)
-            {
-                return queryable.ToFuture();
-            }
-            else
-            {
-                return queryable;
-            }
+            return GetConverter(queryable).ToFuture(queryable);
         }
 
-        private static IFutureValue<T> AsFutureValue<T>(IQueryable<T> queryable)
+        private static Lazy<T> AsFutureValue<T>(IQueryable<T> queryable)
         {
-            if (queryable is QueryableBase<T>)
-            {
-                return queryable.ToFutureValue();
-            }
-            else
-            {
-                return new FutureValue<T>(() => queryable.SingleOrDefault());
-            }
+            return GetConverter(queryable).ToFutureValue(queryable);
         }
 
-        private static IFutureValue<TResult> AsFutureValue<TSource, TResult>(IQueryable<TSource> queryable, Expression<Func<IQueryable<TSource>, TResult>> selector)
-            where TResult : struct
+        private static Lazy<TResult> AsFutureValue<TSource, TResult>(IQueryable<TSource> queryable, Expression<Func<IQueryable<TSource>, TResult>> selector) where TResult : struct
         {
-            if (queryable is QueryableBase<TSource>)
-            {
-                return queryable.ToFutureValue(selector);
-            }
-            else
-            {
-                return new FutureValue<TResult>(() => selector.Compile()(queryable));
-            }
+            return GetConverter(queryable).ToFutureValue(queryable, selector);
         }
     }
 }

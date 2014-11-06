@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{B80C6335
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Querify.Tests", "Querify.Tests\Querify.Tests.csproj", "{140C8146-9A0B-4FD7-A54B-D34CEBF78FB5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{67D88ED7-5828-44FA-9C3B-EED347392A8C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{67D88ED7-5828-44FA-9C3B-EED347392A8C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Querify.Nancy", "Querify.Nancy\Querify.Nancy.csproj", "{89BCFFB6-D878-4F43-87DD-EB60F1B41742}"
 EndProject

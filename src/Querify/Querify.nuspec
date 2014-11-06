@@ -7,14 +7,13 @@
     <authors>Lotpath, Inc.</authors>
     <owners>Lotpath, Inc.</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Query helpers and extensions for NHibernate.</description>
+    <description>Query helpers and extensions.</description>
     <language>en-US</language>
     <copyright>Lotpath, Inc.</copyright>
     <licenseUrl>https://github.com/Lotpath/Querify/blob/master/license.txt</licenseUrl>
     <projectUrl>http://github.com/Lotpath/Querify</projectUrl>
     <dependencies>
-      <dependency id="NHibernate" version="[4.0,5.0)" />
     </dependencies>
-    <tags>NHibernate Query Extensions Paging Paged</tags>
+    <tags>Query Extensions Paging Paged</tags>
   </metadata>
 </package>
