@@ -1,3 +1,6 @@
+### New in 0.7.0.0 (Release 2014/12/04)
+* implemented auto-id generation for in memory repository to improve testability
+
 ### New in 0.6.1.0 (Release 2014/11/06)
 * separating NHibernate and Nancy into separate project to keep core clean
 
