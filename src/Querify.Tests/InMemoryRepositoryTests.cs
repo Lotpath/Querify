@@ -196,5 +196,33 @@ namespace Querify.Tests
                     }
                 );
         }
+
+        [Specification]
+        public void retrieving_entity_type_where_no_entities_of_that_type_exist()
+        {
+            var repo = default(InMemoryRepository);
+            var entity = default(AnEntity);
+
+            "Given an in memory repository with no entities"
+                .Context(() =>
+                {
+                    repo = new InMemoryRepository(cfg =>
+                    {
+                        cfg.ConfigureIdFor<EntityWithIntegerIdNotCalledId, int>(x => x.Identifier, (t, i) => t.Identifier = i);
+                    });
+                });
+
+            "when attempting to retrieve an entity by id"
+                .Do(() =>
+                    {
+                        entity = repo.Get<AnEntity>(1);
+                    });
+
+            "then returned value is null"
+                .Assert(() =>
+                    {
+                        Assert.Null(entity);
+                    });
+        }
     }
 }

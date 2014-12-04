@@ -1,3 +1,6 @@
+### New in 0.7.1.0 (Release 2014/12/04)
+* fix for issue #3 - crash when attempting to get entity from InMemoryRepository when no items of that type have been added to the Repository yet
+
 ### New in 0.7.0.0 (Release 2014/12/04)
 * implemented auto-id generation for in memory repository to improve testability
 

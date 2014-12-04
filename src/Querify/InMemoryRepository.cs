@@ -37,7 +37,8 @@ namespace Querify
         public T Get<T>(object id)
         {
             var idConfiguration = GetIdConfiguration<T>();
-            return (T)_store[typeof(T)].SingleOrDefault(x => idConfiguration.GetIdProperty(x).Equals(id));
+            var store = GetStore<T>();
+            return (T)store.SingleOrDefault(x => idConfiguration.GetIdProperty(x).Equals(id));
         }
 
         public void Remove<T>(T entity)
