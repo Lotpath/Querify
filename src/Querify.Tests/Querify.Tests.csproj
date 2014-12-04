@@ -55,6 +55,8 @@
   <ItemGroup>
     <Compile Include="AnEntity.cs" />
     <Compile Include="AnEntityFiltered.cs" />
+    <Compile Include="EntityWithGuidId.cs" />
+    <Compile Include="EntityWithIntegerIdNotCalledId.cs" />
     <Compile Include="InMemoryRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryableExtensionsTests.cs" />
