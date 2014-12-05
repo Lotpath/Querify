@@ -14,7 +14,10 @@ namespace Querify.Tests
 
         public QueryableExtensionsTests()
         {
-            _source = Builder<AnEntity>.CreateListOfSize(200).Build();
+            _source = Builder<AnEntity>
+                .CreateListOfSize(200)
+                .All().Do(x => x.ActionTaken = false)
+                .Build();
         }
 
         [Specification]
@@ -208,6 +211,56 @@ namespace Querify.Tests
             "then total item count equals count of all available items"
                 .Assert(() =>
                         Assert.Equal(_source.Count, result.TotalItems));
+        }
+
+        [Specification]
+        public void advanced_execute_for_all_runs_action_on_all_items()
+        {
+            var queryable = default(IQueryable<AnEntity>);
+
+            "Given a queryable".Context(() =>
+            {
+                queryable = _source.AsQueryable();
+            });
+
+            "when performing an execute for all with no filter expression"
+                .Do(() =>
+                    {
+                         queryable
+                            .Advanced()
+                            .ExecuteForAll(x => x.ActionTaken = true);
+                    });
+
+            "then all items have the action performed on them"
+                .Assert(() =>
+                        Assert.True(_source.All(x => x.ActionTaken)));
+        }
+
+        [Specification]
+        public void advanced_execute_for_all__with_expression_runs_action_on_all_matching_items()
+        {
+            var queryable = default(IQueryable<AnEntity>);
+
+            "Given a queryable".Context(() =>
+            {
+                queryable = _source.AsQueryable();
+            });
+
+            "when performing an execute for all with a filter expression"
+                .Do(() =>
+                {
+                    queryable
+                       .Advanced()
+                       .ExecuteForAll(x => x.ActionTaken = true, x => x.Id < 100);
+                });
+
+            "then matching items have the action performed on them"
+                .Assert(() =>
+                        Assert.True(_source.Where(x => x.Id < 100).All(x => x.ActionTaken)));
+
+            "then non-matching items do not have the action performed on them"
+                .Assert(() =>
+                        Assert.True(_source.Where(x => x.Id >= 100).All(x => !x.ActionTaken)));
         }
     }
 }

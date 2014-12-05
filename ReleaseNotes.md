@@ -1,3 +1,6 @@
+### New in 0.7.2.0 (Release 2014/12/05)
+* added ExecuteForAll method to Advanced query extensions
+
 ### New in 0.7.1.0 (Release 2014/12/04)
 * fix for issue #3 - crash when attempting to get entity from InMemoryRepository when no items of that type have been added to the Repository yet
 

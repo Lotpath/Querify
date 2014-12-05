@@ -55,12 +55,14 @@ namespace Querify
         {
             if (pageSize < 1 || pageSize > MaxPageSize)
             {
-                throw new ArgumentOutOfRangeException("pageSize", "Items per page must be a value between 1 and " + MaxPageSize);
+                throw new ArgumentOutOfRangeException("pageSize", 
+                    string.Format(
+                    "Items per page must be a value between 1 and {0} (default is {1}", MaxPageSize, DefaultPageSize));
             }
 
             if (!(page > 0))
             {
-                throw new ArgumentOutOfRangeException("pageSize", "Page must be a value greater than zero");
+                throw new ArgumentOutOfRangeException("page", "Page must be a value greater than zero");
             }
 
             if (expression != null)
