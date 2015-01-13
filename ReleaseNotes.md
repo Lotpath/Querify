@@ -1,5 +1,5 @@
 ### New in 0.7.3.0 (Release 2015/01/13)
-* added Fetch and FetchMany capabilities
+* added Fetch and FetchMany extensions for eager fetching
 
 ### New in 0.7.2.0 (Release 2014/12/05)
 * added ExecuteForAll method to Advanced query extensions

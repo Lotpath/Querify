@@ -15,6 +15,7 @@ namespace Querify
         static NHibernateRepository()
         {
             QueryableExtensions.RegisterConverter(new NHibernateFutureConverter());
+            EagerFetchExtensions.RegisterFetchingProvider(new NHibernateEagerFetchProvider());
         }
 
         public NHibernateRepository(ISession session)
@@ -66,6 +67,83 @@ namespace Querify
                 return new Lazy<TResult>(() => queryable.ToFutureValue(selector).Value);
             }
         }
-        
+
+        private class NHibernateEagerFetchProvider : IFetchingProvider
+        {
+            public bool CanHandle<T>(IQueryable<T> queryable)
+            {
+                return queryable is QueryableBase<T>;
+            }
+
+            public IFetchRequest<TOriginating, TRelated> Fetch<TOriginating, TRelated>(IQueryable<TOriginating> query, Expression<Func<TOriginating, TRelated>> relatedObjectSelector)
+            {
+                var fetch = EagerFetchingExtensionMethods.Fetch(query, relatedObjectSelector);
+                return new FetchRequest<TOriginating, TRelated>(fetch);
+            }
+
+            public IFetchRequest<TOriginating, TRelated> FetchMany<TOriginating, TRelated>(IQueryable<TOriginating> query, Expression<Func<TOriginating, IEnumerable<TRelated>>> relatedObjectSelector)
+            {
+                var fetch = EagerFetchingExtensionMethods.FetchMany(query, relatedObjectSelector);
+                return new FetchRequest<TOriginating, TRelated>(fetch);
+            }
+
+            public IFetchRequest<TQueried, TRelated> ThenFetch<TQueried, TFetch, TRelated>(IFetchRequest<TQueried, TFetch> query, Expression<Func<TFetch, TRelated>> relatedObjectSelector)
+            {
+                var impl = query as FetchRequest<TQueried, TFetch>;
+                var fetch = EagerFetchingExtensionMethods.ThenFetch(impl.NhFetchRequest, relatedObjectSelector);
+                return new FetchRequest<TQueried, TRelated>(fetch);
+            }
+
+            public IFetchRequest<TQueried, TRelated> ThenFetchMany<TQueried, TFetch, TRelated>(IFetchRequest<TQueried, TFetch> query, Expression<Func<TFetch, IEnumerable<TRelated>>> relatedObjectSelector)
+            {
+                var impl = query as FetchRequest<TQueried, TFetch>;
+                var fetch = EagerFetchingExtensionMethods.ThenFetchMany(impl.NhFetchRequest, relatedObjectSelector);
+                return new FetchRequest<TQueried, TRelated>(fetch);
+            }
+        }
+
+        private class FetchRequest<TQueried, TFetch> : IFetchRequest<TQueried, TFetch>
+        {
+            public IEnumerator<TQueried> GetEnumerator()
+            {
+                return this.NhFetchRequest.GetEnumerator();
+            }
+
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+            {
+                return this.NhFetchRequest.GetEnumerator();
+            }
+
+            public Type ElementType
+            {
+                get
+                {
+                    return this.NhFetchRequest.ElementType;
+                }
+            }
+
+            public Expression Expression
+            {
+                get
+                {
+                    return this.NhFetchRequest.Expression;
+                }
+            }
+
+            public IQueryProvider Provider
+            {
+                get
+                {
+                    return this.NhFetchRequest.Provider;
+                }
+            }
+
+            public FetchRequest(INhFetchRequest<TQueried, TFetch> nhFetchRequest)
+            {
+                this.NhFetchRequest = nhFetchRequest;
+            }
+
+            public INhFetchRequest<TQueried, TFetch> NhFetchRequest { get; private set; }
+        }
     }
 }
