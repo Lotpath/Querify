@@ -1,3 +1,6 @@
+### New in 0.8.1 (Release 2015/01/14)
+* fixed nuspec dependencies for Querify.Nh project
+
 ### New in 0.8.0 (Release 2015/01/14)
 * separated NHibernate repository into a separate project
 * added auto configuration for string ids to use manual id assignment by default

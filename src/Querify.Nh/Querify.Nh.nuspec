@@ -14,7 +14,6 @@
     <projectUrl>http://github.com/Lotpath/Querify</projectUrl>
     <dependencies>
       <dependency id="NHibernate" version="[4.0,5.0)" />
-      <dependency id="Querify.Nh" />
       <dependency id="Querify" />
     </dependencies>
     <tags>NHibernate Query Extensions Paging Paged</tags>
