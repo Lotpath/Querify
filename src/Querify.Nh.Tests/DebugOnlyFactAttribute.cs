@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace Querify.Nancy.Tests
+namespace Querify.Nh.Tests
 {
 #if DEBUG
     public class DebugOnlyFactAttribute : FactAttribute

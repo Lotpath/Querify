@@ -7,8 +7,8 @@
     <ProjectGuid>{89BCFFB6-D878-4F43-87DD-EB60F1B41742}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Querify.Nancy</RootNamespace>
-    <AssemblyName>Querify.Nancy</AssemblyName>
+    <RootNamespace>Querify</RootNamespace>
+    <AssemblyName>Querify.Nancy.Nh</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -50,10 +50,13 @@
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="NHibernate.cs" />
-    <Compile Include="NHibernateRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Querify.Nh\Querify.Nh.csproj">
+      <Project>{c1042f8a-dd41-4ac0-9e74-06941fbc3c00}</Project>
+      <Name>Querify.Nh</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Querify\Querify.csproj">
       <Project>{70861372-27e0-4f75-9bc9-36110272166f}</Project>
       <Name>Querify</Name>

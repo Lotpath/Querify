@@ -57,6 +57,7 @@
     <Compile Include="AnEntityFiltered.cs" />
     <Compile Include="EntityWithGuidId.cs" />
     <Compile Include="EntityWithIntegerIdNotCalledId.cs" />
+    <Compile Include="EntityWithStringId.cs" />
     <Compile Include="InMemoryRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryableExtensionsTests.cs" />

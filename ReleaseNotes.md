@@ -1,3 +1,7 @@
+### New in 0.8.0 (Release 2015/01/14)
+* separated NHibernate repository into a separate project
+* added auto configuration for string ids to use manual id assignment by default
+
 ### New in 0.7.3.0 (Release 2015/01/13)
 * added Fetch and FetchMany extensions for eager fetching
 

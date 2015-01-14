@@ -37,6 +37,33 @@ namespace Querify.Tests
                     Assert.NotNull(repo.Get<AnEntity>(4))
                 );
         }
+        
+        [Specification]
+        public void adding_and_getting_items_with_manually_assigned_auto_configured_string_ids()
+        {
+            var repo = default(InMemoryRepository);
+
+            "Given an in memory repository"
+                .Context(() =>
+                    {
+                        repo = new InMemoryRepository();
+                    });
+
+            "when adding a new entity"
+                .Do(() =>
+                    {
+                        repo.Add(new EntityWithStringId()
+                            {
+                                Id = "foo",
+                                Name = "Joe",
+                            });
+                    });
+
+            "then the entity can be retrieved by id"
+                .Assert(() =>
+                    Assert.NotNull(repo.Get<EntityWithStringId>("foo"))
+                );
+        }
 
         [Specification]
         public void using_advanced_repository_to_fetch_items_with_auto_generated_ids()

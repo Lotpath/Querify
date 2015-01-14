@@ -3,11 +3,11 @@ using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.TinyIoc;
 
-namespace Querify.Nancy
+namespace Querify
 {
     public static class NHibernate
     {
-        public static void ConfigureRequestContainer(TinyIoCContainer container, NancyContext context)
+        public static void PerRequest(TinyIoCContainer container, NancyContext context)
         {
             var session = container.Resolve<ISessionFactory>().OpenSession();
             container.Register(session);
@@ -16,7 +16,7 @@ namespace Querify.Nancy
             context.Items["NhSession"] = session;
         }
 
-        public static void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
+        public static void OnStartup(TinyIoCContainer container, IPipelines pipelines)
         {
             pipelines.AfterRequest += ctx => CommitSession(ctx);
             pipelines.OnError += (ctx, ex) => RollbackSession(ctx);
