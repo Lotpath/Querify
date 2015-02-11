@@ -9,7 +9,7 @@ using Sample.Persistence;
 using Xunit;
 
 namespace Querify.Nh.Tests
-{   
+{
     public class EagerFetchingTests : IDisposable
     {
         private readonly PersistenceFixture _fixture;
@@ -52,6 +52,29 @@ namespace Querify.Nh.Tests
             Assert.Equal(1, _fixture.PreparedSqlStatements.Count);
         }
 
+        [Fact]
+        public void query_with_fetch_many_grandchildren_successfully_retrieves_three_level_object_graph()
+        {
+            var parent = default(Parent);
+
+            using (var session = _fixture.SessionFactory.OpenSession())
+            using (var transaction = session.BeginTransaction())
+            {
+                var repo = new NHibernateRepository(session);
+                parent = repo.Advanced.Query<Parent>()
+                                 .Fetch(x => x.Firstborn)
+                                 .ThenFetchMany(x => x.Grandkids)
+                                 .FindOneOrThrow().Value;
+
+                transaction.Commit();
+
+            }
+
+            Assert.NotNull(parent.Firstborn);
+            Assert.NotEmpty(parent.Firstborn.Grandkids);
+            Assert.Equal(2, parent.Firstborn.Grandkids.Count);
+        }
+
         private void ConfigureFixture(PersistenceFixture fixture)
         {
             fixture.Create();
@@ -76,8 +99,27 @@ namespace Querify.Nh.Tests
 
                 session.Save(contact);
 
+                var parent = new Parent(Guid.NewGuid());
+                parent.Name = "Gramps";
+
+                var child = new Child();
+                child.Name = "Favored Son";
+
+                var grand1 = new Grandchild(Guid.NewGuid());
+                grand1.Name = "thing one";
+                var grand2 = new Grandchild(Guid.NewGuid());
+                grand2.Name = "thing two";
+
+                parent.SetFirstborn(child);
+                child.Grandkids.Add(grand1);
+                child.Grandkids.Add(grand2);
+
+                session.Save(parent);
+
                 transaction.Commit();
             }
+
+            _fixture.PreparedSqlStatements.Clear();
         }
 
         public void Dispose()

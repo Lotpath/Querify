@@ -7,7 +7,11 @@ using NHibernate.Linq;
 
 namespace Querify
 {
-    internal class NHibernateFetchRequestAdapter<TQueried, TFetch> : IFetchRequest<TQueried, TFetch>
+    internal interface INHibernateFetchRequest<T>
+    {        
+    }
+
+    internal class NHibernateFetchRequestAdapter<TQueried, TFetch> : IFetchRequest<TQueried, TFetch>, INHibernateFetchRequest<TQueried>
     {
         public IEnumerator<TQueried> GetEnumerator()
         {

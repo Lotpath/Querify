@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="ContactMap.cs" />
     <Compile Include="ContactPhoneMap.cs" />
+    <Compile Include="ParentMap.cs" />
     <Compile Include="PersistenceConfigurer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

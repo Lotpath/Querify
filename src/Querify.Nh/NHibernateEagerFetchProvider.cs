@@ -11,7 +11,8 @@ namespace Querify
     {
         public bool CanHandle<T>(IQueryable<T> queryable)
         {
-            return queryable is QueryableBase<T>;
+            return queryable is QueryableBase<T>
+                || queryable is INHibernateFetchRequest<T>;
         }
 
         public IFetchRequest<TOriginating, TRelated> Fetch<TOriginating, TRelated>(IQueryable<TOriginating> query, Expression<Func<TOriginating, TRelated>> relatedObjectSelector)

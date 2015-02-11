@@ -1,3 +1,6 @@
+### Nte in 0.8.2 (Release 2015/02/11)
+* fixed issue #5 by properly implementing NHiberate fetch provider for ThenFetch and ThenFetchMany
+
 ### New in 0.8.1 (Release 2015/01/14)
 * fixed nuspec dependencies for Querify.Nh project
 
