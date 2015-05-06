@@ -1,4 +1,7 @@
-### Nte in 0.8.2 (Release 2015/02/11)
+### New in 0.8.3 (Release 2015/02/11)
+* closes #9 by implementing GetOrThrow
+
+### New in 0.8.2 (Release 2015/02/11)
 * fixed issue #5 by properly implementing NHiberate fetch provider for ThenFetch and ThenFetchMany
 
 ### New in 0.8.1 (Release 2015/01/14)

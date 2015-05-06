@@ -54,6 +54,7 @@
     <Compile Include="QuerifyException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryableExtensions.cs" />
+    <Compile Include="RepositoryExtensions.cs" />
     <Compile Include="Specification.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

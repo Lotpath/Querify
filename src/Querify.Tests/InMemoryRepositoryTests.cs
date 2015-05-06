@@ -251,5 +251,30 @@ namespace Querify.Tests
                         Assert.Null(entity);
                     });
         }
+
+        [Specification]
+        public void retrieving_entity_using_get_or_throw_when_entity_does_not_exist()
+        {
+            var repo = default(InMemoryRepository);
+            var exception = default(Exception);
+
+            "Given an in memory repository with no entities"
+                .Context(() =>
+                {
+                    repo = new InMemoryRepository();
+                });
+
+            "when performing a get or throw"
+                .Do(() =>
+                {
+                    exception = Record.Exception(() => repo.GetOrThrow<AnEntity>(1));
+                });
+
+            "then a no match found exception is thrown"
+                .Assert(() =>
+                    {
+                        Assert.IsType<NoMatchFoundException>(exception);
+                    });
+        }
     }
 }

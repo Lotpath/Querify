@@ -7,7 +7,7 @@ using System.Reflection;
 
 [assembly: AssemblyDescription("Query and paging extensions for NHibernate")]
 [assembly: AssemblyProduct("Querify")]
-[assembly: AssemblyVersion("0.8.2")]
-[assembly: AssemblyFileVersion("0.8.2")]
-[assembly: AssemblyInformationalVersion("0.8.2")]
+[assembly: AssemblyVersion("0.8.3")]
+[assembly: AssemblyFileVersion("0.8.3")]
+[assembly: AssemblyInformationalVersion("0.8.3")]
 [assembly: AssemblyCopyright("Copyright (c) Lotpath 2014")]
