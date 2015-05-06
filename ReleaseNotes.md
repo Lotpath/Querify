@@ -1,6 +1,7 @@
-### New in 0.9.0 (Release 2015/05/06)
+### New in 0.8.3 (Release 2015/05/06)
 * closes #9 by implementing GetOrThrow
 * closes #8 adding auto NoMatchFoundException handling for Nancy
+* closes #7 renaming nancy bootstrap methods
 
 ### New in 0.8.2 (Release 2015/02/11)
 * fixed issue #5 by properly implementing NHiberate fetch provider for ThenFetch and ThenFetchMany

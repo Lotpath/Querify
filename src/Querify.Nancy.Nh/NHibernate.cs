@@ -8,7 +8,19 @@ namespace Querify
 {
     public static class NHibernate
     {
+        [Obsolete("Use OnConfigureRequestContainer - PerRequest will be removed in a future version")]
         public static void PerRequest(TinyIoCContainer container, NancyContext context)
+        {
+            OnConfigureRequestContainer(container, context);
+        }
+
+        [Obsolete("Use OnApplicationStartup - OnStartup will be removed in a future version")]
+        public static void OnStartup(TinyIoCContainer container, IPipelines pipelines)
+        {
+            OnApplicationStartup(container, pipelines, false);
+        }
+
+        public static void OnConfigureRequestContainer(TinyIoCContainer container, NancyContext context)
         {
             var session = container.Resolve<ISessionFactory>().OpenSession();
             container.Register(session);
@@ -17,7 +29,7 @@ namespace Querify
             context.Items["NhSession"] = session;
         }
 
-        public static void OnStartup(TinyIoCContainer container, IPipelines pipelines, bool convertNoMatchFoundExceptionTo404 = true)
+        public static void OnApplicationStartup(TinyIoCContainer container, IPipelines pipelines, bool convertNoMatchFoundExceptionTo404 = true)
         {
             pipelines.AfterRequest += ctx => CommitSession(ctx);
             pipelines.OnError += (ctx, ex) => RollbackSession(ctx);
