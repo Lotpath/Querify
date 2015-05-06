@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using System;
+using NHibernate;
 using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.TinyIoc;
@@ -16,10 +17,28 @@ namespace Querify
             context.Items["NhSession"] = session;
         }
 
-        public static void OnStartup(TinyIoCContainer container, IPipelines pipelines)
+        public static void OnStartup(TinyIoCContainer container, IPipelines pipelines, bool convertNoMatchFoundExceptionTo404 = true)
         {
             pipelines.AfterRequest += ctx => CommitSession(ctx);
             pipelines.OnError += (ctx, ex) => RollbackSession(ctx);
+
+            if (convertNoMatchFoundExceptionTo404)
+            {
+                pipelines.OnError += (ctx, ex) =>
+                    {
+                        var exception = ex as NoMatchFoundException;
+                        return exception != null ? ConvertNoMatchFoundExceptionTo404(exception) : null;
+                    };
+            }
+        }
+
+        private static Response ConvertNoMatchFoundExceptionTo404(NoMatchFoundException ex)
+        {
+            return new NotFoundResponse
+                {
+                    StatusCode = HttpStatusCode.NotFound,
+                    ReasonPhrase = ex.Message,
+                };
         }
 
         private static AfterPipeline CommitSession(NancyContext context)
