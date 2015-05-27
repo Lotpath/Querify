@@ -58,6 +58,8 @@
   <ItemGroup>
     <Compile Include="DebugOnlyFactAttribute.cs" />
     <Compile Include="EagerFetchingTests.cs" />
+    <Compile Include="PagingTests.cs" />
+    <Compile Include="PersistenceFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubSpec\SubSpec.cs" />
     <Compile Include="SubSpec\SubSpec.Thesis.cs" />

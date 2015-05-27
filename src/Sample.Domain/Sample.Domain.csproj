@@ -39,10 +39,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Acl\PagedResponse.cs" />
+    <Compile Include="Acl\ContactsReviewModel.cs" />
     <Compile Include="ContactPhone.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ParentChildGrandchild.cs" />
+    <Compile Include="Services\ContactManager.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Querify\Querify.csproj">
+      <Project>{70861372-27e0-4f75-9bc9-36110272166f}</Project>
+      <Name>Querify</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
