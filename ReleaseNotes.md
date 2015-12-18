@@ -1,3 +1,6 @@
+### New in 0.9.1 (Release 2015/12/16)
+* closes #12 explicit ISession registration
+
 ### New in 0.9.0 (Release 2015/11/20)
 * closes #11 update to latest nhibernate and nancy libraries
 

@@ -23,7 +23,7 @@ namespace Querify
         public static void OnConfigureRequestContainer(TinyIoCContainer container, NancyContext context)
         {
             var session = container.Resolve<ISessionFactory>().OpenSession();
-            container.Register(session);
+            container.Register<ISession>(session);
             container.Register<IRepository>(new NHibernateRepository(session));
             session.BeginTransaction();
             context.Items["NhSession"] = session;
